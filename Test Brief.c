@@ -12,26 +12,23 @@ typedef struct compte client;
 struct compte cmp[50];
 int n=0;
 
-
-
 void introuduire_compte(){ 
 //Creation Un Compte Bancaire
-	int j=0;
 	printf("entrez votre nom: ");
-	scanf("%s",cmp[j].nom);
+	scanf("%s",cmp[n].nom);
 	printf("entrez votre prenom: ");
-	scanf("%s",cmp[j].prenom);
+	scanf("%s",cmp[n].prenom);
 	printf("entrez votre cin: ");
-	scanf("%s",cmp[j].cin);
+	scanf("%s",cmp[n].cin);
 	printf("entrez votre montant: ");
-	scanf("%f",&cmp[j].montant);
-	j++;
+	scanf("%f",&cmp[n].montant);
+	n++;
 	}
 void Depot()
 {
 	//Versement
 	char cin[10];
-	printf("entrez votre cin");
+	printf("entrez votre cin :");
 	scanf("%s",cin);
     int i;
     float x;
@@ -39,7 +36,7 @@ void Depot()
     {
         if (strcmp(cin,cmp[i].cin) == 0)
         {   
-        printf("entrez le solde ");
+        printf("entrez le solde :");
         scanf("%f",&x);
         cmp[i].montant += x;
         printf("nouveau montant est %g\n", cmp[i].montant);
@@ -66,23 +63,26 @@ void retrait()
         printf("nouveau montant est %g\n",cmp[i].montant);
         break;
         }
+    
     }
 }
 void trieascendent(){
+//Par Ordre Ascendent
 client temps;
- int i,change = 0;
- do {
- 	for(i = 0; i < n - 1; i++){
- 	if (cmp[i].montant > cmp[i + 1].montant){
- 	temps=cmp[i];
-    cmp[i] =cmp[i + 1];
-    cmp[i + 1] = temps;	
- 	 	
-	  }
-	  change++;
-	 
+ int i,k;
+ 	for(i = 0; i < n; i++){
+ 	for(k=0;k<n-i-1;k++){
+ 	if (cmp[k].montant > cmp[k + 1].montant){
+ 	temps=cmp[k];
+    cmp[k] =cmp[k + 1];
+    cmp[k + 1] = temps;	
 	 }
- }while (change > 0);
+	  }
+	 }
+	 for(i=0;i<n;i++){
+	 	printf("donner moi les comptes par ascendent %s\t%s\t%s\t%f\n",cmp[i].nom,cmp[i].prenom,cmp[i].cin,cmp[i].montant);
+	 }
+ 
 }
 void affichage(){
 	int i;
@@ -97,9 +97,27 @@ void affichage(){
 		
 	}
 }
+void triedescendent(){
+//Par Ordre Descendent
+client temps;
+ int i,k;
+ 	for(i = 0; i < n; i++){
+ 	for(k=0;k<n-i-1;k++){
+ 	if (cmp[k].montant < cmp[k + 1].montant){
+ 	temps=cmp[k];
+    cmp[k] =cmp[k + 1];
+    cmp[k + 1] = temps;	
+	 }
+	  }
+	 }
+	 for(i=0;i<n;i++){
+	 	printf("donner moi les comptes par descendent %s\t%s\t%s\t%f\n",cmp[i].nom,cmp[i].prenom,cmp[i].cin,cmp[i].montant);
+	 }
+ 
+}
 		
 int main(){
-	int choix,i;
+	int choix,i,y;
 	do{
 	printf("\t\t\t\t\t1-introdruire compte client\n");
 	printf("\t\t\t\t\t2-introduire plusieurs compte\n");
@@ -120,11 +138,10 @@ int main(){
 		break;
 		case 2:
 	    //Creation Plusieurs Compte Bancaire
-	
 		printf("introduire plusieurs compte\n");
 		printf("entrez nombre des comptes\n");
-		scanf("%d",&n);
-        for(i=0;i<n;i++){
+		scanf("%d",&y);
+        for(i=0;i<y;i++){
         introuduire_compte();
         }
         system("cls");
@@ -158,8 +175,21 @@ int main(){
 		
 	
 		case 4:
-		printf("Affichage");
-	    affichage();
+		printf("Affichage\n");
+		printf("1-ascendent\n");
+		printf("2-descendent\n");
+		int choix;
+		scanf("%d",&choix);
+		switch(choix){
+			case 1:
+			trieascendent();
+			break;
+			case 2:
+			triedescendent();
+			break;	
+		}
+	    
+	    
 	    
 	    
 		break;
