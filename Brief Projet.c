@@ -115,6 +115,25 @@ client temps;
 	 }
  
 }
+void fedilisation(){
+	client temps;
+ int i,k;
+ 	for(i = 0; i < n; i++){
+ 	for(k=0;k<n-i-1;k++){
+ 	if (cmp[k].montant < cmp[k + 1].montant){
+ 	temps=cmp[k];
+    cmp[k] =cmp[k + 1];
+    cmp[k + 1] = temps;	
+	 }
+	  }
+	   }
+	for(i=0;i<3;i++){
+    cmp[i].montant=cmp[i].montant*1.013;
+    printf("afficher les trois comptes %s\t%s\t%s%\t%f\n",cmp[i].cin,cmp[i].nom,cmp[i].prenom,cmp[i].montant);
+	}
+	
+
+}
 		
 int main(){
 	int choix,i,y;
@@ -144,7 +163,6 @@ int main(){
         for(i=0;i<y;i++){
         introuduire_compte();
         }
-        system("cls");
         affichage();
 	
 		break;
@@ -195,6 +213,7 @@ int main(){
 		break;
 		case 5:
 		printf("fidelisation");
+		fedilisation();
 		break;
 		case 6:
 		printf("Quittez l application");
